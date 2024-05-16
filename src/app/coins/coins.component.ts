@@ -44,15 +44,13 @@ export class CoinsComponent implements OnInit {
 
     this.coingeckoService.getCategoriesList().subscribe(
       (data) => {
-        setTimeout(() => {
-          this.categories = data.slice(0, 20);
-        }, 1500);
+        this.categories = data.slice(0, 20);
       },
       (error) => {
         // Handle errors if any
         // If useApi is false, load data from local JSON
         this.coingeckoService.loadLocalCategoriesList().subscribe((data) => {
-          this.cryptocurrencies = data;
+          this.categories = data;
         });
       }
     );
@@ -69,9 +67,7 @@ export class CoinsComponent implements OnInit {
       )
       .subscribe(
         (data) => {
-          setTimeout(() => {
-            this.cryptocurrencies = data;
-          }, 1500);
+          this.cryptocurrencies = data;
         },
         (error) => {
           // Handle errors if any

@@ -28,9 +28,7 @@ export class CategoriesComponent implements OnInit {
   loadCategories(): void {
     this.coingeckoService.getCategories().subscribe(
       (data) => {
-        setTimeout(() => {
-          this.categories = data.slice(0, 50);
-        }, 1500);
+        this.categories = data.slice(0, 50);
       },
       (error) => {
         // Handle errors if any

@@ -1,247 +1,265 @@
 <div class="container my-5">
   <!-- <a [routerLink]="['/']">Home</a> -->
-  <div class="row">
-    <aside *ngIf="!cryptocurrency.name" class="col-md-5 col-lg-4">
-      <span class="placeholder col-6"></span>
-      <span class="placeholder w-75"></span>
-      <span class="placeholder" style="width: 25%"></span>
-    </aside>
-    <aside *ngIf="cryptocurrency.name" class="col-md-5 col-lg-4">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Cryptocurrencies</a></li>
-          <li class="breadcrumb-item active" aria-current="page">
-            {{ cryptocurrency.name }} Price
+  <div class="card border border-0 shadow p-4">
+    <div class="row">
+      <aside *ngIf="!cryptocurrency.name" class="col-md-5 col-lg-4">
+        <span class="placeholder col-6"></span>
+        <span class="placeholder w-75"></span>
+        <span class="placeholder" style="width: 25%"></span>
+      </aside>
+      <aside *ngIf="cryptocurrency.name" class=" col-lg-4">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Cryptocurrencies</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+              {{ cryptocurrency.name }} Price
+            </li>
+          </ol>
+        </nav>
+        <h4>
+          <img
+            src="{{ cryptocurrency.image.small }}"
+            alt="{{ cryptocurrency.name }}"
+            width="25"
+            height="25"
+          />
+          <strong>
+            {{ cryptocurrency.name }}
+          </strong>
+          <span class="badge text-bg-light text-uppercase">{{
+            cryptocurrency.symbol
+          }}</span>
+          <span class="">#{{ cryptocurrency.market_cap_rank }}</span>
+        </h4>
+        <h2 class="display-3 fw-bold">
+          {{
+            cryptocurrency.market_data.current_price.eur
+              | currency : currencyCode : currencySymbol
+          }}
+        </h2>
+
+        <ul class="list-group list-group-flush">
+          <li class="d-flex justify-content-between list-group-item">
+            <span class="text-muted">Market Cap</span>
+            <span class="fw-bold">{{
+              cryptocurrency.market_data.market_cap.eur
+                | currency : currencyCode : currencySymbol
+            }}</span>
           </li>
-        </ol>
-      </nav>
-      <h4>
-        <img
-          src="{{ cryptocurrency.image.small }}"
-          alt="{{ cryptocurrency.name }}"
-          width="25"
-          height="25"
-        />
-        <strong>
-          {{ cryptocurrency.name }}
-        </strong>
-        <span class="badge text-bg-light text-uppercase">{{
-          cryptocurrency.symbol
-        }}</span>
-        <span class="">#{{ cryptocurrency.market_cap_rank }}</span>
-      </h4>
-      <h2 class="display-3 fw-bold">
-        {{
-          cryptocurrency.market_data.current_price.eur
-            | currency : currencyCode : currencySymbol
-        }}
-      </h2>
-
-      <ul class="list-group list-group-flush">
-        <li class="d-flex justify-content-between list-group-item">
-          <span class="text-muted">Market Cap</span>
-          <span class="fw-bold">{{
-            cryptocurrency.market_data.market_cap.eur
-              | currency : currencyCode : currencySymbol
-          }}</span>
-        </li>
-        <li class="d-flex justify-content-between list-group-item">
-          <span class="text-muted">Fully Diluted Valuation</span>
-          <span class="fw-bold">{{
-            cryptocurrency.market_data.fully_diluted_valuation.eur
-              | currency : currencyCode : currencySymbol
-          }}</span>
-        </li>
-        <li class="d-flex justify-content-between list-group-item">
-          <span class="text-muted">Circulating Supply</span>
-          <span class="fw-bold">{{
-            cryptocurrency.market_data.circulating_supply
-          }}</span>
-        </li>
-        <li class="d-flex justify-content-between list-group-item">
-          <span class="text-muted">Total Supply</span>
-          <span class="fw-bold">{{
-            cryptocurrency.market_data.total_supply
-          }}</span>
-        </li>
-        <li class="d-flex justify-content-between list-group-item">
-          <span class="text-muted">Max Supply</span>
-          <span class="fw-bold">{{
-            cryptocurrency.market_data.max_supply
-          }}</span>
-        </li>
-        <li class="d-flex justify-content-between list-group-item mt-3">
-          <span class="fw-bold">
-            <i class="bi bi-share-fill"></i>
-            {{ cryptocurrency.developer_data.forks }}
-          </span>
-          <span class="fw-bold">
-            <i class="bi bi-stars"></i>
-            {{ cryptocurrency.developer_data.stars }}
-          </span>
-          <span class="fw-bold">
-            <i class="bi bi-people-fill"></i>
-            {{ cryptocurrency.developer_data.subscribers }}
-          </span>
-        </li>
-      </ul>
-      <div class="mt-3">
-        <h4>Homepage</h4>
-        <a
-          *ngFor="let link of cryptocurrency.links.homepage"
-          href="{{ link }}"
-          target="_blank"
-        >
-          {{ link }}
-        </a>
-      </div>
-
-      <hr />
-      <div class="d-flex justify-content-between">
-        <strong>Genesis Date</strong>
-        <i class="text-muted">{{ cryptocurrency.genesis_date }}</i>
-      </div>
-    </aside>
-    <section class="col-md-7 col-lg-8 pt-3 pt-md-0">
-      <nav>
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button
-            class="nav-link active"
-            id="nav-overview-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#nav-overview"
-            type="button"
-            role="tab"
-            aria-controls="nav-overview"
-            aria-selected="true"
+          <li class="d-flex justify-content-between list-group-item">
+            <span class="text-muted">Fully Diluted Valuation</span>
+            <span class="fw-bold">{{
+              cryptocurrency.market_data.fully_diluted_valuation.eur
+                | currency : currencyCode : currencySymbol
+            }}</span>
+          </li>
+          <li class="d-flex justify-content-between list-group-item">
+            <span class="text-muted">Circulating Supply</span>
+            <span class="fw-bold">{{
+              cryptocurrency.market_data.circulating_supply
+            }}</span>
+          </li>
+          <li class="d-flex justify-content-between list-group-item">
+            <span class="text-muted">Total Supply</span>
+            <span class="fw-bold">{{
+              cryptocurrency.market_data.total_supply
+            }}</span>
+          </li>
+          <li class="d-flex justify-content-between list-group-item">
+            <span class="text-muted">Max Supply</span>
+            <span class="fw-bold">{{
+              cryptocurrency.market_data.max_supply
+            }}</span>
+          </li>
+          <li class="d-flex justify-content-between list-group-item mt-3">
+            <span class="fw-bold">
+              <i class="bi bi-share-fill"></i>
+              {{ cryptocurrency.developer_data.forks }}
+            </span>
+            <span class="fw-bold">
+              <i class="bi bi-stars"></i>
+              {{ cryptocurrency.developer_data.stars }}
+            </span>
+            <span class="fw-bold">
+              <i class="bi bi-people-fill"></i>
+              {{ cryptocurrency.developer_data.subscribers }}
+            </span>
+          </li>
+        </ul>
+        <div class="mt-3">
+          <h4>Homepage</h4>
+          <a
+            *ngFor="let link of cryptocurrency.links.homepage"
+            href="{{ link }}"
+            target="_blank"
           >
-            Overview
-          </button>
-          <button
-            class="nav-link"
-            id="nav-description-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#nav-description"
-            type="button"
-            role="tab"
-            aria-controls="nav-description"
-            aria-selected="false"
+            {{ link }}
+          </a>
+        </div>
+
+        <hr />
+        <div class="d-flex justify-content-between">
+          <strong>Genesis Date</strong>
+          <i class="text-muted">{{ cryptocurrency.genesis_date }}</i>
+        </div>
+      </aside>
+      <section class="col-md-6 col-lg-8 pt-3 pt-md-0 align-content-center">
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button
+              class="nav-link active"
+              id="nav-overview-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-overview"
+              type="button"
+              role="tab"
+              aria-controls="nav-overview"
+              aria-selected="true"
+            >
+              Overview
+            </button>
+            <button
+              class="nav-link"
+              id="nav-description-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-description"
+              type="button"
+              role="tab"
+              aria-controls="nav-description"
+              aria-selected="false"
+            >
+              Description
+            </button>
+            <button
+              class="nav-link"
+              id="nav-markets-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-markets"
+              type="button"
+              role="tab"
+              aria-controls="nav-markets"
+              aria-selected="false"
+            >
+              Markets
+            </button>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div
+            class="tab-pane fade show active"
+            id="nav-overview"
+            role="tabpanel"
+            aria-labelledby="nav-overview-tab"
+            tabindex="0"
           >
-            Description
-          </button>
-          <button
-            class="nav-link"
-            id="nav-markets-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#nav-markets"
-            type="button"
-            role="tab"
-            aria-controls="nav-markets"
-            aria-selected="false"
+            <h3 class="fw-bold py-3">Price change percentage</h3>
+            <canvas
+              *ngIf="lineChartLegend"
+              ngChartjs
+              [datasets]="lineChartData"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [legend]="lineChartLegend"
+              [chartType]="'line'"
+            >
+            </canvas>
+          </div>
+          <div
+            class="tab-pane fade"
+            id="nav-description"
+            role="tabpanel"
+            aria-labelledby="nav-description-tab"
+            tabindex="0"
           >
-            Markets
-          </button>
+            <div [innerHTML]="cryptocurrency.description.en" class="py-3"></div>
+          </div>
+          <div
+            class="table-responsive tab-pane fade"
+            id="nav-markets"
+            role="tabpanel"
+            aria-labelledby="nav-markets-tab"
+            tabindex="0"
+          >
+            <table class="table caption-top">
+              <caption>
+                Top 15 Markets
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Exchange</th>
+                  <th scope="col">Pair</th>
+                  <th scope="col">Spread</th>
+                  <th scope="col">Volume</th>
+                  <th scope="col" class="text-end">Trust Score</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="cryptocurrency.tickers.length">
+                <tr
+                  *ngFor="
+                    let ticker of cryptocurrency.tickers.slice(0, 15);
+                    index as i
+                  "
+                >
+                  <th scope="row">{{ i + 1 }}</th>
+                  <td>
+                    <div class="d-flex justify-content-between">
+                      <span>{{ ticker.market.name }}</span>
+                      <span class="badge text-bg-light text-uppercase">{{
+                        ticker.market.identifier
+                      }}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <a
+                      href="{{ ticker.trade_url }}"
+                      class="btn-link text-uppercase text-decoration-none"
+                      target="_blank"
+                    >
+                      {{ ticker.base }}/{{ ticker.target }}
+                      <i class="bi bi-link-45deg"></i>
+                    </a>
+                  </td>
+                  <td>
+                    {{
+                      ticker.bid_ask_spread_percentage
+                        ? ticker.bid_ask_spread_percentage.toFixed(2) + "%"
+                        : ""
+                    }}
+                  </td>
+                  <td>
+                    {{
+                      ticker.volume | currency : currencyCode : currencySymbol
+                    }}
+                  </td>
+                  <td class="text-end">
+                    <div
+                      class="spinner-grow"
+                      style="width: 1rem; height: 1rem"
+                      [style.color]="ticker.trust_score"
+                      role="status"
+                    >
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </nav>
-      <div class="tab-content" id="nav-tabContent">
-        <div
-          class="tab-pane fade show active"
-          id="nav-overview"
-          role="tabpanel"
-          aria-labelledby="nav-overview-tab"
-          tabindex="0"
-        >
-          <!-- TODO Add Chart -->
-        </div>
-        <div
-          class="tab-pane fade"
-          id="nav-description"
-          role="tabpanel"
-          aria-labelledby="nav-description-tab"
-          tabindex="0"
-        >
-          <div [innerHTML]="cryptocurrency.description.en" class="py-3"></div>
-        </div>
-        <div
-          class="tab-pane fade"
-          id="nav-markets"
-          role="tabpanel"
-          aria-labelledby="nav-markets-tab"
-          tabindex="0"
-        >
-          <table class="table caption-top">
-            <caption>
-              Top 15 Markets
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Exchange</th>
-                <th scope="col">Pair</th>
-                <th scope="col">Spread</th>
-                <th scope="col">Volume</th>
-                <th scope="col" class="text-end">Trust Score</th>
-              </tr>
-            </thead>
-            <tbody *ngIf="cryptocurrency.tickers.length">
-              <tr
-                *ngFor="
-                  let ticker of cryptocurrency.tickers.slice(0, 15);
-                  index as i
-                "
-              >
-                <th scope="row">{{ i + 1 }}</th>
-                <td>
-                  <div class="d-flex justify-content-between">
-                    <span>{{ ticker.market.name }}</span>
-                    <span class="badge text-bg-light text-uppercase">{{
-                      ticker.market.identifier
-                    }}</span>
-                  </div>
-                </td>
-                <td>
-                  <a
-                    href="{{ ticker.trade_url }}"
-                    class="btn-link text-uppercase text-decoration-none"
-                    target="_blank"
-                  >
-                    {{ ticker.base }}/{{ ticker.target }}
-                    <i class="bi bi-link-45deg"></i>
-                  </a>
-                </td>
-                <td>
-                  {{ ticker.bid_ask_spread_percentage.toFixed(2) + "%" }}
-                </td>
-                <td>
-                  {{ ticker.volume | currency : currencyCode : currencySymbol }}
-                </td>
-                <td class="text-end">
-                  <div
-                    class="spinner-grow"
-                    style="width: 1rem; height: 1rem"
-                    [style.color]="ticker.trust_score"
-                    role="status"
-                  >
-                    <span class="visually-hidden">Loading...</span>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      </section>
+    </div>
+
+    <hr class="border border-2 shadow" />
+
+    <div *ngIf="cryptocurrency.categories.length">
+      <h3>related categories</h3>
+      <div
+        class="btn-group"
+        *ngFor="let category of cryptocurrency.categories; index as i"
+      >
+        <span class="badge text-bg-primary mx-2">{{ category }}</span>
       </div>
-    </section>
-  </div>
-
-  <hr class="border border-2 shadow" />
-
-  <div *ngIf="cryptocurrency.categories.length">
-    <h3>related categories</h3>
-    <div
-      class="btn-group"
-      *ngFor="let category of cryptocurrency.categories; index as i"
-    >
-      <span class="badge text-bg-primary mx-2">{{ category }}</span>
     </div>
   </div>
 </div>

@@ -29,11 +29,8 @@ export class HeaderComponent {
   loadTrending(): void {
     this.coingeckoService.getTrending().subscribe(
       (data) => {
-        console.log(data)
-        setTimeout(() => {
-          this.trendCategories = data.categories;
-          this.trendCoins = data.coins;
-        }, 1500);
+        this.trendCategories = data.categories;
+        this.trendCoins = data.coins;
       },
       (error) => {
         // Handle errors if any

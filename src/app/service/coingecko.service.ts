@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CoingeckoService {
+
   private baseUrl = 'https://api.coingecko.com/api/v3';
 
   constructor(private http: HttpClient) {}
@@ -53,7 +54,7 @@ export class CoingeckoService {
 
   // Get cryptocurrency details by ID
   getCryptocurrencyById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/coins/${id}`);
+    return this.http.get<any>(`${this.baseUrl}/coinss/${id}`);
   }
 
   // Get cryptocurrencies with optional filters
@@ -65,7 +66,6 @@ export class CoingeckoService {
 
   // local data
   loadLocalCoins(category: string = ''): Observable<any> {
-    // Replace this with your path to the local JSON file
     if (category === '') {
       return this.http.get<any>('assets/data/list.json');
     } else {
@@ -76,27 +76,22 @@ export class CoingeckoService {
   }
 
   loadLocalCoin(): Observable<any> {
-    // Replace this with your path to the local JSON file
     return this.http.get<any>('assets/data/bitcoin.json');
   }
 
   loadLocalCategories(): Observable<any> {
-    // Replace this with your path to the local JSON file
     return this.http.get<any>('assets/data/categories.json');
   }
 
   loadLocalCategoriesList(): Observable<any> {
-    // Replace this with your path to the local JSON file
     return this.http.get<any>('assets/data/categories_list.json');
   }
 
   loadLocalTrending(): Observable<any> {
-    // Replace this with your path to the local JSON file
     return this.http.get<any>('assets/data/trending.json');
   }
 
   loadLocalSearch(): Observable<any> {
-    // Replace this with your path to the local JSON file
     return this.http.get<any>('assets/data/search_bit.json');
   }
 }
