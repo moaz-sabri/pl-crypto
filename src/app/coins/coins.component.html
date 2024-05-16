@@ -1,1 +1,81 @@
-<p>Coins works!</p>
+<div class="container-lg my-5">
+  <app-header></app-header>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="table-responsive-md">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Coin</th>
+              <th scope="col">Price</th>
+              <th scope="col">24h Volume</th>
+              <th scope="col" class="text-end">Market Cap</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="cryptocurrencies.length > 0">
+            <tr
+              *ngFor="let currency of cryptocurrencies; index as i"
+              class="my-3"
+            >
+              <th scope="row">{{ i + 1 }}</th>
+              <td>
+                <a class="btn" (click)="goTo('coin', [currency.id])">
+                  <img
+                    src="{{ currency.image }}"
+                    alt="{{ currency.name }}"
+                    width="25"
+                    height="25"
+                  />
+                  <strong>
+                    {{ currency.name }}
+                  </strong>
+                </a>
+              </td>
+              <td>
+                {{
+                  currency.current_price
+                    | currency : currencyCode : currencySymbol
+                }}
+              </td>
+              <td>
+                {{
+                  currency.total_volume
+                    | currency : currencyCode : currencySymbol
+                }}
+              </td>
+              <td class="text-end">
+                {{
+                  currency.market_cap | currency : currencyCode : currencySymbol
+                }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="cryptocurrencies.length == 0">
+          <p class="placeholder-glow">
+            <span class="placeholder col-12"></span>
+          </p>
+
+          <p class="placeholder-wave">
+            <span class="placeholder col-12"></span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="p-3">
+        <h3>List Categories</h3>
+        <ul class="list-group list-group-flush">
+          <li
+            *ngFor="let category of categories"
+            (click)="goTo('coins', [category.category_id])"
+            class="btn list-group-item text-start"
+          >
+            {{ category.name }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

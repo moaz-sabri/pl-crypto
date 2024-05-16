@@ -1,0 +1,126 @@
+[
+  {
+    "category_id": "aave-tokens",
+    "name": "Aave Tokens"
+  },
+  {
+    "category_id": "account-abstraction",
+    "name": "Account Abstraction"
+  },
+  {
+    "category_id": "adidas-ecosystem",
+    "name": "Adidas Ecosystem"
+  },
+  {
+    "category_id": "adventure-games",
+    "name": "Adventure Games"
+  },
+  {
+    "category_id": "ai-agents",
+    "name": "AI Agents"
+  },
+  {
+    "category_id": "ai-meme-coins",
+    "name": "AI Meme Coins"
+  },
+  {
+    "category_id": "ai-themed-coins",
+    "name": "AI-Themed Coins"
+  },
+  {
+    "category_id": "alameda-research-portfolio",
+    "name": "Alameda Research Portfolio"
+  },
+  {
+    "category_id": "alephium-ecosystem",
+    "name": "Alephium Ecosystem"
+  },
+  {
+    "category_id": "algorand-ecosystem",
+    "name": "Algorand Ecosystem"
+  },
+  {
+    "category_id": "alleged-sec-securities",
+    "name": "Alleged SEC Securities"
+  },
+  {
+    "category_id": "analytics",
+    "name": "Analytics"
+  },
+  {
+    "category_id": "andreessen-horowitz-a16z-portfolio",
+    "name": "Andreessen Horowitz (a16z) Portfolio"
+  },
+  {
+    "category_id": "animal-racing",
+    "name": "Animal Racing"
+  },
+  {
+    "category_id": "anime-themed-coins",
+    "name": "Anime-Themed Coins"
+  },
+  {
+    "category_id": "animoca-brands",
+    "name": "Animoca Brands"
+  },
+  {
+    "category_id": "apex-chain-ecosystem",
+    "name": "Apex Chain Ecosystem"
+  },
+  {
+    "category_id": "appchains",
+    "name": "Appchains"
+  },
+  {
+    "category_id": "aptos-ecosystem",
+    "name": "Aptos Ecosystem"
+  },
+  {
+    "category_id": "arbitrum-ecosystem",
+    "name": "Arbitrum Ecosystem"
+  },
+  {
+    "category_id": "arbitrum-nova-ecosystem",
+    "name": "Arbitrum Nova Ecosystem"
+  },
+  {
+    "category_id": "archway-ecosystem",
+    "name": "Archway Ecosystem"
+  },
+  {
+    "category_id": "art",
+    "name": "Art"
+  },
+  {
+    "category_id": "art-blocks-ecosystem",
+    "name": "Art Blocks Ecosystem"
+  },
+  {
+    "category_id": "artificial-intelligence",
+    "name": "Artificial Intelligence (AI)"
+  },
+  {
+    "category_id": "asset-backed-tokens",
+    "name": "Asset-backed Tokens"
+  },
+  {
+    "category_id": "asset-manager",
+    "name": "Asset Manager"
+  },
+  {
+    "category_id": "astar-ecosystem",
+    "name": "Astar Ecosystem"
+  },
+  {
+    "category_id": "atomicals-arc-20",
+    "name": "Atomicals (ARC-20)"
+  },
+  {
+    "category_id": "augmented-reality",
+    "name": "Augmented Reality"
+  },
+  {
+    "category_id": "aurora-ecosystem",
+    "name": "Aurora Ecosystem"
+  }
+]

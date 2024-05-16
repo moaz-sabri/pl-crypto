@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" (click)="goTo('')">Navbar</a>
+    <a class="navbar-brand" (click)="goTo('')">PL-Cryptocurrencies</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -15,17 +15,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" (click)="goTo('coin', [123])">
-            coin by id
-          </a>
+          <a class="nav-link" (click)="goTo('')"> Coins </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="goTo('categories')"> Categories </a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
+      <form class="d-flex" role="search" (ngSubmit)="search()">
         <input
           class="form-control me-2"
           type="search"
           placeholder="Search"
           aria-label="Search"
+          [(ngModel)]="searchQuery"
+          name="searchQuery"
         />
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
