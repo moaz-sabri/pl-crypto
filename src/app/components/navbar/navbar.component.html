@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" (click)="goTo('')">PL-Cryptocurrencies</a>
+    <a class="navbar-brand" [routerLink]="['/']">PL-Crypto-C</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -15,10 +15,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" (click)="goTo('')"> Coins </a>
+          <a class="nav-link" [routerLink]="['/']"> Coins </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="goTo('categories')"> Categories </a>
+          <a class="nav-link" [routerLink]="['/categories/']"> Categories </a>
         </li>
       </ul>
       <form class="d-flex" role="search" (ngSubmit)="search()">

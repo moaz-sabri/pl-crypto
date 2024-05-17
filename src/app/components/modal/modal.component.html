@@ -14,7 +14,7 @@
     <li
       *ngFor="let coin of searchResult; let i = index"
       class="list-group-item d-flex justify-content-between"
-      (click)="goTo('coin', [coin.id])"
+      [routerLink]="['/coin', coin.id]"
     >
       <div>
         <span class="me-3">{{ i + 1 }}</span>

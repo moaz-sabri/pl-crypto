@@ -1,5 +1,5 @@
 <div class="container my-5">
-  <!-- <a [routerLink]="['/']">Home</a> -->
+  
   <div *ngIf="cryptocurrency" class="card border border-0 shadow p-4">
     <div class="row">
       <aside *ngIf="!cryptocurrency.name" class="col-md-5 col-lg-4">
@@ -10,7 +10,7 @@
       <aside *ngIf="cryptocurrency.name" class="col-lg-4">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Cryptocurrencies</a></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/']">Cryptocurrencies</a></li>
             <li class="breadcrumb-item active" aria-current="page">
               {{ cryptocurrency.name }} Price
             </li>

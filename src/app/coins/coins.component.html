@@ -20,7 +20,7 @@
             >
               <th scope="row">{{ i + 1 }}</th>
               <td>
-                <a class="btn" (click)="goTo('coin', [currency.id])">
+                <a class="btn" [routerLink]="['/coin/', currency.id]">
                   <img
                     src="{{ currency.image }}"
                     alt="{{ currency.name }}"
@@ -69,7 +69,7 @@
         <ul class="list-group list-group-flush">
           <li
             *ngFor="let category of categories"
-            (click)="goTo('coins', [category.category_id])"
+            [routerLink]="['/coins', category.category_id]"
             class="btn list-group-item text-start"
           >
             {{ category.name }}

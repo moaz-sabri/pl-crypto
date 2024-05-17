@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationStart,
+  Router,
+  RouterLink,
+} from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { CoingeckoService } from '../../service/coingecko.service';
 import { FormsModule } from '@angular/forms';
@@ -9,7 +14,7 @@ import { ModalComponent } from '../modal/modal.component';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [FormsModule, NgbModule],
+  imports: [FormsModule, RouterLink, NgbModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
@@ -54,22 +59,11 @@ export class NavbarComponent implements OnInit {
   }
 
   openModal(result: any) {
+    console.log(result)
     const modalRef = this.modalService.open(ModalComponent, {
       size: 'lg',
       scrollable: true,
     });
     modalRef.componentInstance.searchResult = result.coins;
-  }
-
-  goTo(path: string, params: any[] = []) {
-    let navigationParams: any[];
-
-    if (params.length > 0) {
-      navigationParams = [path, ...params];
-    } else {
-      navigationParams = [path];
-    }
-
-    this.router.navigate(navigationParams);
   }
 }

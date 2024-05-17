@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { CoingeckoService } from '../service/coingecko.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HeaderComponent } from '../components/header/header.component';
 
 @Component({
   selector: 'app-coins',
   standalone: true,
-  imports: [CommonModule, HeaderComponent],
+  imports: [CommonModule, RouterLink, HeaderComponent],
   templateUrl: './coins.component.html',
   styleUrl: './coins.component.css',
 })
@@ -89,17 +89,5 @@ export class CoinsComponent implements OnInit {
       this.currentPage--;
       this.loadCryptocurrencies();
     }
-  }
-
-  goTo(path: string, params: any[] = []) {
-    let navigationParams: any[];
-
-    if (params.length > 0) {
-      navigationParams = [path, ...params];
-    } else {
-      navigationParams = [path];
-    }
-
-    this.router.navigate(navigationParams);
   }
 }

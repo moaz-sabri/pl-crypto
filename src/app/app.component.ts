@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { CoinsComponent } from './coins/coins.component';
-import { CoinComponent } from './coin/coin.component';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 
@@ -10,8 +8,8 @@ import { FooterComponent } from './components/footer/footer.component';
   standalone: true,
   imports: [
     RouterOutlet,
-    CoinsComponent,
-    CoinComponent,
+    RouterLink,
+    RouterLinkActive,
     NavbarComponent,
     FooterComponent,
   ],
@@ -22,5 +20,4 @@ export class AppComponent implements OnInit {
   title = 'prolion';
 
   ngOnInit(): void {}
-
 }

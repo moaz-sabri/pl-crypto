@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CoingeckoService } from '../service/coingecko.service';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../components/header/header.component';
@@ -7,7 +7,7 @@ import { HeaderComponent } from '../components/header/header.component';
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [CommonModule, HeaderComponent],
+  imports: [CommonModule, RouterLink, HeaderComponent],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css',
 })
@@ -38,17 +38,5 @@ export class CategoriesComponent implements OnInit {
         });
       }
     );
-  }
-
-  goTo(path: string, params: any[] = []) {
-    let navigationParams: any[];
-
-    if (params.length > 0) {
-      navigationParams = [path, ...params];
-    } else {
-      navigationParams = [path];
-    }
-
-    this.router.navigate(navigationParams);
   }
 }

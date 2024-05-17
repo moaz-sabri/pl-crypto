@@ -15,7 +15,7 @@
         <tr *ngFor="let category of categories; index as i" class="my-3">
           <th scope="row">{{ i + 1 }}</th>
           <td>
-            <a class="btn" (click)="goTo('coins/', [category.id])">
+            <a class="btn" [routerLink]="['/coins/', category.id]">
               {{ category.name }}
             </a>
           </td>

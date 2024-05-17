@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CoingeckoService } from '../service/coingecko.service';
 import { CommonModule } from '@angular/common';
 import { NgChartjsModule } from 'ng-chartjs';
@@ -9,7 +9,7 @@ import { Coin } from '../interfaces/coin';
 @Component({
   selector: 'app-coin',
   standalone: true,
-  imports: [CommonModule, NgChartjsModule],
+  imports: [CommonModule, RouterLink, NgChartjsModule],
   templateUrl: './coin.component.html',
   styleUrl: './coin.component.css',
 })

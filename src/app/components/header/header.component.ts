@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CoingeckoService } from '../../service/coingecko.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
@@ -41,17 +41,5 @@ export class HeaderComponent {
         });
       }
     );
-  }
-
-  goTo(path: string, params: any[] = []) {
-    let navigationParams: any[];
-
-    if (params.length > 0) {
-      navigationParams = [path, ...params];
-    } else {
-      navigationParams = [path];
-    }
-
-    this.router.navigate(navigationParams);
   }
 }
