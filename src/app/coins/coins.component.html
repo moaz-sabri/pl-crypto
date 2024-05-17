@@ -117,6 +117,31 @@
           <i class="bi fs-3 bi-chevron-compact-left"></i>
         </button>
 
+        <nav class="nav justify-content-between">
+          <div></div>
+          <div>
+            <div class="dropdown">
+              <a
+                class="btn btn-primary"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Loaded ({{ itemsPerPage }})
+              </a>
+
+              <ul class="dropdown-menu">
+                <li *ngFor="let num of countOfItems">
+                  <button class="btn dropdown-item" (click)="loadPerPage(num)">
+                    {{ num }}
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
         <button
           class="btn btn-outline-primary rounded rounded-5 fw-bold"
           id="nextButton"

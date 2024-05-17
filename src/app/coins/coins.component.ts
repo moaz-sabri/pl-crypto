@@ -76,6 +76,7 @@ export class CoinsComponent implements OnInit {
 
     let category = this.category;
     let order = this.order;
+    let per_page = this.itemsPerPage;
 
     this.route.params.subscribe((params) => {
       category = params['category'] || category;
@@ -83,12 +84,13 @@ export class CoinsComponent implements OnInit {
 
     this.route.queryParams.subscribe((params) => {
       order = params['order'] || order;
+      per_page = params['per_page'] || per_page;
     });
 
     this.coingeckoService
       .getCryptocurrencies(
         this.currentPage,
-        this.itemsPerPage,
+        per_page,
         this.vs_currency,
         category,
         order,
@@ -97,7 +99,7 @@ export class CoinsComponent implements OnInit {
       )
       .subscribe(
         (data) => {
-          data.length < this.itemsPerPage
+          data.length < per_page
             ? next.classList.add('disabled')
             : next.classList.remove('disabled');
 
@@ -111,7 +113,7 @@ export class CoinsComponent implements OnInit {
           // Handle errors if any
           // If useApi is false, load data from local JSON
           this.coingeckoService.loadLocalCoins().subscribe((data) => {
-            this.cryptocurrencies = data.slice(0, this.itemsPerPage);
+            this.cryptocurrencies = data.slice(0, per_page);
             next.classList.add('disabled');
             previous.classList.add('disabled');
           });
@@ -124,6 +126,21 @@ export class CoinsComponent implements OnInit {
 
     const navigationExtras: NavigationExtras = {
       queryParams: { order: sort },
+    };
+
+    this.router.navigate([], {
+      ...navigationExtras,
+      queryParamsHandling: 'merge', // Merge with existing query parameters
+    });
+
+    this.loadCryptocurrencies();
+  }
+
+  countOfItems = [25, 50, 100, 250, 500];
+  loadPerPage(val: number) {
+    this.itemsPerPage = val;
+    const navigationExtras: NavigationExtras = {
+      queryParams: { per_page: val },
     };
 
     this.router.navigate([], {
