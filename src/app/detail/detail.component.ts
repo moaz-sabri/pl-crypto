@@ -11,10 +11,10 @@ import { GlobalService } from '../service/global.service';
   selector: 'app-coin',
   standalone: true,
   imports: [CommonModule, RouterLink, NgChartjsModule],
-  templateUrl: './coin.component.html',
-  styleUrl: './coin.component.css',
+  templateUrl: './detail.component.html',
+  styleUrl: './detail.component.css',
 })
-export class CoinComponent {
+export class CoinDetailComponent {
   lineChartData: Chart.ChartDataset[] = [];
   lineChartLabels: Array<any> = [];
   lineChartOptions: any = {

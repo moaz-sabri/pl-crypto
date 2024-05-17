@@ -8,10 +8,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { CoinComponent } from './coin/coin.component';
-import { CoinsComponent } from './coins/coins.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CoinListComponent } from './list/list.component';
 
 @NgModule({
   imports: [
@@ -22,8 +21,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     BrowserModule,
     RouterOutlet,
-    CoinsComponent,
-    CoinComponent,
+    CoinListComponent,
+    CoinListComponent,
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
 })

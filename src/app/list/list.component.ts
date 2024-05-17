@@ -9,15 +9,16 @@ import {
 } from '@angular/router';
 import { HeaderComponent } from '../components/header/header.component';
 import { GlobalService } from '../service/global.service';
+import { Coin } from '../interfaces/coin';
 
 @Component({
   selector: 'app-coins',
   standalone: true,
   imports: [CommonModule, RouterLink, HeaderComponent],
-  templateUrl: './coins.component.html',
-  styleUrl: './coins.component.css',
+  templateUrl: './list.component.html',
+  styleUrl: './list.component.css',
 })
-export class CoinsComponent implements OnInit {
+export class CoinListComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -26,13 +27,13 @@ export class CoinsComponent implements OnInit {
     private coingeckoService: CoingeckoService
   ) {}
 
-  cryptocurrencies: any[] = [];
-
+  
   categoryPerPage = 25;
   categoryInPage = 0;
   categories_view: any[] = [];
   categories: any[] = [];
-
+  
+  cryptocurrencies: Coin[] = [];
   currentPage = 1;
   itemsPerPage = 100;
   category = '';

@@ -1,18 +1,18 @@
 import { Routes } from '@angular/router';
-import { CoinsComponent } from './coins/coins.component';
-import { CoinComponent } from './coin/coin.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { CoinListComponent } from './list/list.component';
+import { CoinDetailComponent } from './detail/detail.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full', title: 'Landingpage' },
   {
     path: '',
-    component: CoinsComponent,
+    component: CoinListComponent,
     title: 'Coins Component',
   },
   {
     path: 'coins/:category',
-    component: CoinsComponent,
+    component: CoinListComponent,
     title: 'Categories of Coins',
   },
   {
@@ -22,7 +22,7 @@ export const routes: Routes = [
   },
   {
     path: 'coin/:id',
-    component: CoinComponent,
+    component: CoinDetailComponent,
     title: 'Coin Component',
   },
 ];

@@ -10,6 +10,8 @@ export interface Coin {
   symbol?: string;
   // Current price of the coin
   current_price?: number;
+  //
+  market_cap?: number;
   // 24-hour price change percentage
   price_change_percentage_24h?: number;
   // Total volume of the coin
