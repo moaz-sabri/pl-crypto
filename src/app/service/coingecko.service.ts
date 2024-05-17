@@ -54,7 +54,7 @@ export class CoingeckoService {
 
   // Get cryptocurrency details by ID
   getCryptocurrencyById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/coinss/${id}`);
+    return this.http.get<any>(`${this.baseUrl}/coins/${id}`);
   }
 
   // Get cryptocurrencies with optional filters
