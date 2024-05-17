@@ -1,5 +1,4 @@
 <div class="container my-5">
-  
   <div *ngIf="cryptocurrency" class="card border border-0 shadow p-4">
     <div class="row">
       <aside *ngIf="!cryptocurrency.name" class="col-md-5 col-lg-4">
@@ -10,7 +9,9 @@
       <aside *ngIf="cryptocurrency.name" class="col-lg-4">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a [routerLink]="['/']">Cryptocurrencies</a></li>
+            <li class="breadcrumb-item">
+              <a [routerLink]="['/']">Cryptocurrencies</a>
+            </li>
             <li class="breadcrumb-item active" aria-current="page">
               {{ cryptocurrency.name }} Price
             </li>
@@ -30,7 +31,9 @@
           <span class="badge text-bg-light text-uppercase">{{
             cryptocurrency.symbol
           }}</span>
-          <span class="">#{{ cryptocurrency.market_cap_rank }}</span>
+          <span *ngIf="cryptocurrency.market_cap_rank" class=""
+            >#{{ cryptocurrency.market_cap_rank }}</span
+          >
         </h4>
         <div *ngIf="cryptocurrency.market_data">
           <h2
@@ -39,7 +42,9 @@
           >
             {{
               cryptocurrency.market_data.current_price.eur
-                | currency : currencyCode : currencySymbol
+                | currency
+                  : this.globalService.currencyCode
+                  : this.globalService.currencySymbol
             }}
           </h2>
 
@@ -51,9 +56,11 @@
                 class="fw-bold"
                 >{{
                   cryptocurrency.market_data.market_cap.eur
-                    | currency : currencyCode : currencySymbol
-                }}</span
-              >
+                    | currency
+                      : this.globalService.currencyCode
+                      : this.globalService.currencySymbol
+                }}
+              </span>
             </li>
             <li class="d-flex justify-content-between list-group-item">
               <span class="text-muted">Fully Diluted Valuation</span>
@@ -62,9 +69,11 @@
                 class="fw-bold"
                 >{{
                   cryptocurrency.market_data.fully_diluted_valuation.eur
-                    | currency : currencyCode : currencySymbol
-                }}</span
-              >
+                    | currency
+                      : this.globalService.currencyCode
+                      : this.globalService.currencySymbol
+                }}
+              </span>
             </li>
             <li class="d-flex justify-content-between list-group-item">
               <span class="text-muted">Circulating Supply</span>
@@ -251,7 +260,10 @@
                   </td>
                   <td>
                     {{
-                      ticker.volume | currency : currencyCode : currencySymbol
+                      ticker.volume
+                        | currency
+                          : this.globalService.currencyCode
+                          : this.globalService.currencySymbol
                     }}
                   </td>
                   <td class="text-end">

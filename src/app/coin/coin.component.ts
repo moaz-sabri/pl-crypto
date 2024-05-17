@@ -1,10 +1,11 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CoingeckoService } from '../service/coingecko.service';
 import { CommonModule } from '@angular/common';
 import { NgChartjsModule } from 'ng-chartjs';
 import * as Chart from 'chart.js';
 import { Coin } from '../interfaces/coin';
+import { GlobalService } from '../service/global.service';
 
 @Component({
   selector: 'app-coin',
@@ -39,12 +40,11 @@ export class CoinComponent {
 
   constructor(
     private route: ActivatedRoute,
+    protected globalService: GlobalService,
     private coingeckoService: CoingeckoService
   ) {}
 
   cryptocurrency: Coin = {};
-  currencyCode = 'USD'; // Define your currency code here
-  currencySymbol = '€';
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {

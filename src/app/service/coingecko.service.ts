@@ -49,7 +49,6 @@ export class CoingeckoService {
   }
 
   getSearch(search: string = ''): Observable<any> {
-    console.log(search)
     return this.http.get<any>(`${this.baseUrl}/search?query=${search}`);
   }
 

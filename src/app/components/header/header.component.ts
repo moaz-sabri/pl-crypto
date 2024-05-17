@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { CoingeckoService } from '../../service/coingecko.service';
 import { CommonModule } from '@angular/common';
+import { GlobalService } from '../../service/global.service';
 
 @Component({
   selector: 'app-header',
@@ -13,14 +14,12 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent {
   searchQuery: string = '';
   constructor(
-    private router: Router,
+    protected globalService: GlobalService,
     private coingeckoService: CoingeckoService
   ) {}
 
   trendCategories: any[] = [];
   trendCoins: any[] = [];
-  currencyCode = 'USD'; // Define your currency code here
-  currencySymbol = '€';
 
   ngOnInit(): void {
     this.loadTrending();

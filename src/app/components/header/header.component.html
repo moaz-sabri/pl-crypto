@@ -39,7 +39,9 @@
                   <span>
                     {{
                       category.data.total_volume
-                        | currency : currencyCode : currencySymbol
+                        | currency
+                          : this.globalService.currencyCode
+                          : this.globalService.currencySymbol
                     }}
                   </span>
                   <strong>Coins {{ category.coins_count }}</strong>

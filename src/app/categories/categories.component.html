@@ -30,10 +30,20 @@
             />
           </td>
           <td>
-            {{ category.volume_24h | currency : currencyCode : currencySymbol }}
+            {{
+              category.volume_24h
+                | currency
+                  : this.globalService.currencyCode
+                  : this.globalService.currencySymbol
+            }}
           </td>
           <td class="text-end">
-            {{ category.market_cap | currency : currencyCode : currencySymbol }}
+            {{
+              category.market_cap
+                | currency
+                  : this.globalService.currencyCode
+                  : this.globalService.currencySymbol
+            }}
           </td>
         </tr>
       </tbody>

@@ -59,7 +59,6 @@ export class NavbarComponent implements OnInit {
   }
 
   openModal(result: any) {
-    console.log(result)
     const modalRef = this.modalService.open(ModalComponent, {
       size: 'lg',
       scrollable: true,

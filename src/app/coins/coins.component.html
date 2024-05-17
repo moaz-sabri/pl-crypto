@@ -6,11 +6,50 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">#</th>
+              <th scope="col">
+                <div class="d-block">
+                  <button class="btn btn-sm me-2" (click)="sortPage('id', 0)">
+                    <i class="bi bi-sort-up"></i>
+                  </button>
+                  <button class="btn btn-sm" (click)="sortPage('id', 1)">
+                    <i class="bi bi-sort-down"></i>
+                  </button>
+                </div>
+                #
+              </th>
               <th scope="col">Coin</th>
               <th scope="col">Price</th>
-              <th scope="col">24h Volume</th>
-              <th scope="col" class="text-end">Market Cap</th>
+              <th scope="col">
+                <div class="d-block">
+                  <button
+                    class="btn btn-sm me-2"
+                    (click)="sortPage('volume', 0)"
+                  >
+                    <i class="bi bi-sort-up"></i>
+                  </button>
+                  <button class="btn btn-sm" (click)="sortPage('volume', 1)">
+                    <i class="bi bi-sort-down"></i>
+                  </button>
+                </div>
+                24h Volume
+              </th>
+              <th scope="col" class="text-end">
+                <div class="d-block">
+                  <button
+                    class="btn btn-sm me-2"
+                    (click)="sortPage('market_cap', 0)"
+                  >
+                    <i class="bi bi-sort-up"></i>
+                  </button>
+                  <button
+                    class="btn btn-sm"
+                    (click)="sortPage('market_cap', 1)"
+                  >
+                    <i class="bi bi-sort-down"></i>
+                  </button>
+                </div>
+                Market Cap
+              </th>
             </tr>
           </thead>
           <tbody *ngIf="cryptocurrencies.length > 0">
@@ -35,18 +74,25 @@
               <td>
                 {{
                   currency.current_price
-                    | currency : currencyCode : currencySymbol
+                    | currency
+                      : this.globalService.currencyCode
+                      : this.globalService.currencySymbol
                 }}
               </td>
               <td>
                 {{
                   currency.total_volume
-                    | currency : currencyCode : currencySymbol
+                    | currency
+                      : this.globalService.currencyCode
+                      : this.globalService.currencySymbol
                 }}
               </td>
               <td class="text-end">
                 {{
-                  currency.market_cap | currency : currencyCode : currencySymbol
+                  currency.market_cap
+                    | currency
+                      : this.globalService.currencyCode
+                      : this.globalService.currencySymbol
                 }}
               </td>
             </tr>
@@ -62,19 +108,42 @@
           </p>
         </div>
       </div>
+      <nav class="nav justify-content-between">
+        <button
+          class="btn btn-outline-primary rounded rounded-5 fw-bold"
+          id="previousButton"
+          (click)="previousPage()"
+        >
+          <i class="bi fs-3 bi-chevron-compact-left"></i>
+        </button>
+
+        <button
+          class="btn btn-outline-primary rounded rounded-5 fw-bold"
+          id="nextButton"
+          (click)="nextPage()"
+        >
+          <i class="bi fs-3 bi-chevron-compact-right"></i>
+        </button>
+      </nav>
     </div>
     <div class="col-md-4">
       <div class="p-3">
         <h3>List Categories</h3>
         <ul class="list-group list-group-flush">
           <li
-            *ngFor="let category of categories"
+            *ngFor="let category of categories_view; let index = index"
             [routerLink]="['/coins', category.category_id]"
             class="btn list-group-item text-start"
           >
+            {{ index + 1 }}
             {{ category.name }}
           </li>
         </ul>
+        <div class="text-center">
+          <button id="moreButton" (click)="moreCategories()" class="btn btn-lg">
+            <i class="bi bi-three-dots"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>
