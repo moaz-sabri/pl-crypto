@@ -189,6 +189,10 @@ When loading data, the application first attempts to fetch categories from the C
 
 The current version of the project is **1.0.0**, representing the initial release version.
 
+## Online Demo
+
+You can try out a live demo of this project on [pl.joudev.com](https://pl.joudev.com/).
+
 ## License
 
 This project is licensed under the [License Name](LICENSE).
