@@ -91,6 +91,7 @@
               "src/styles.css"
             ],
             "scripts": [],
+            "browsers": "ChromeHeadless",
             "karmaConfig": "karma.conf.js"
           }
         },
