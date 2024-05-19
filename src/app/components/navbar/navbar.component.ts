@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationStart,
-  Router,
-  RouterLink,
-} from '@angular/router';
+import { NavigationStart, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { CoingeckoService } from '../../service/coingecko.service';
 import { FormsModule } from '@angular/forms';
@@ -19,50 +14,54 @@ import { ModalComponent } from '../modal/modal.component';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit {
-  searchQuery: string = '';
+  searchQuery: string = ''; // Declaring a searchQuery string to hold the search input
+
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private coingeckoService: CoingeckoService,
+    private readonly router: Router,
+    private readonly coingeckoService: CoingeckoService,
     private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
+    // Lifecycle hook that runs after the component's view has been initialized
+    // Subscribing to router events to detect navigation start events
     this.router.events
-      .pipe(filter((e) => e instanceof NavigationStart))
+      .pipe(filter((e) => e instanceof NavigationStart)) // Filtering for NavigationStart events
       .subscribe((e) => {
-        const navigation = this.router.getCurrentNavigation();
+        const navigation = this.router.getCurrentNavigation(); // Getting the current navigation
+        this.onRouteChange(); // Calling the method to handle route change
       });
   }
 
   onRouteChange(): void {
-    // Execute any logic you want to perform when a route changes
-    console.log('Route changed');
+    // Method to execute logic when a route changes
+    console.log('Route changed'); // Logging the route change
   }
 
   search(): void {
-    // Call the function in CoingeckoService with the searchQuery parameter
+    // Method to perform a search using the CoingeckoService
+    // Calling the search function in CoingeckoService with the searchQuery parameter
     this.coingeckoService.getSearch(this.searchQuery).subscribe(
       (data) => {
-        // Open modal with the search data
-        this.openModal(data);
+        // Handling the success scenario
+        this.openModal(data); // Opening a modal with the search data
       },
       (error) => {
-        // Handle errors if any
-        // If useApi is false, load data from local JSON
+        // Handling errors if the API call fails
+        // If an error occurs, load data from a local JSON file as a fallback
         this.coingeckoService.loadLocalSearch().subscribe((data) => {
-          // Open modal with the search result
-          this.openModal(data);
+          this.openModal(data); // Opening a modal with the local search data
         });
       }
     );
   }
 
   openModal(result: any) {
+    // Method to open a modal with the search result
     const modalRef = this.modalService.open(ModalComponent, {
-      size: 'lg',
-      scrollable: true,
+      size: 'lg', // Setting the modal size to large
+      scrollable: true, // Making the modal scrollable
     });
-    modalRef.componentInstance.searchResult = result.coins;
+    modalRef.componentInstance.searchResult = result.coins; // Passing the search result to the modal component instance
   }
 }

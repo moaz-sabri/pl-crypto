@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -11,11 +11,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './modal.component.css',
 })
 export class ModalComponent {
-  searchResult: any[] = [];
+  searchResult: any[] = []; // Declaring an array to hold the search results
 
-  constructor(private router: Router, private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal) {}
 
   closeModal() {
-    this.modalService.dismissAll(ModalComponent);
+    // Method to close the modal
+    this.modalService.dismissAll(); // Dismissing all modals
   }
 }

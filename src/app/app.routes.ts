@@ -4,25 +4,25 @@ import { CoinListComponent } from './list/list.component';
 import { CoinDetailComponent } from './detail/detail.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '', pathMatch: 'full', title: 'Landingpage' },
+  { path: '', redirectTo: '', pathMatch: 'full', title: 'Home' },
   {
     path: '',
     component: CoinListComponent,
-    title: 'Coins Component',
+    data: { title: 'Coins' },
   },
   {
     path: 'coins/:category',
     component: CoinListComponent,
-    title: 'Categories of Coins',
+    data: { title: 'Coins by Category' },
   },
   {
     path: 'categories',
     component: CategoriesComponent,
-    title: 'Categories of Coins',
+    data: { title: 'Categories' },
   },
   {
     path: 'coin/:id',
     component: CoinDetailComponent,
-    title: 'Coin Component',
+    data: { title: 'Coin Detail' },
   },
 ];

@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class GlobalService {
-  currencyCode = 'USD';
-  currencySymbol = '€';
+  currencyCode = 'EUR'; // Currency code for Euro
+  currencySymbol = '€'; // Currency symbol for Euro
 
   constructor() {}
 }

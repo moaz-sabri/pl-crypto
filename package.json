@@ -1,6 +1,6 @@
 {
-  "name": "prolion",
-  "version": "0.0.0",
+  "name": "pl-crypto",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

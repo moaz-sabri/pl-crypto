@@ -4,6 +4,7 @@ import { CoingeckoService } from '../service/coingecko.service';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../components/header/header.component';
 import { GlobalService } from '../service/global.service';
+import { Category } from '../interfaces/category';
 
 @Component({
   selector: 'app-categories',
@@ -13,27 +14,30 @@ import { GlobalService } from '../service/global.service';
   styleUrl: './categories.component.css',
 })
 export class CategoriesComponent implements OnInit {
+  categories: Category[] = []; // Declaring a categories array to hold Category objects
+
   constructor(
-    protected globalService: GlobalService,
-    private coingeckoService: CoingeckoService
+    protected readonly globalService: GlobalService,
+    private readonly coingeckoService: CoingeckoService
   ) {}
 
-  categories: any[] = [];
-
   ngOnInit(): void {
-    this.loadCategories();
+    // Lifecycle hook that runs after the component's view has been initialized
+    this.loadCategories(); // Calling the method to load categories
   }
 
   loadCategories(): void {
+    // Method to load categories from the CoingeckoService
     this.coingeckoService.getCategories().subscribe(
       (data) => {
-        this.categories = data.slice(0, 50);
+        // Handling the success scenario
+        this.categories = data.slice(0, 50); // Assigning the first 50 categories to the categories array
       },
       (error) => {
-        // Handle errors if any
-        // If useApi is false, load data from local JSON
+        // Handling errors if the API call fails
+        // If an error occurs, load data from a local JSON file as a fallback
         this.coingeckoService.loadLocalCategories().subscribe((data) => {
-          this.categories = data;
+          this.categories = data.slice(0, 50); // Assigning the first 50 local categories to the categories array
         });
       }
     );

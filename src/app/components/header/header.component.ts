@@ -12,31 +12,34 @@ import { GlobalService } from '../../service/global.service';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-  searchQuery: string = '';
+  searchQuery: string = ''; // Declaring a searchQuery string to hold the search input
+  trendCategories: any[] = []; // Declaring an array to hold trending categories
+  trendCoins: any[] = []; // Declaring an array to hold trending coins
+
   constructor(
-    protected globalService: GlobalService,
-    private coingeckoService: CoingeckoService
+    protected readonly globalService: GlobalService,
+    private readonly coingeckoService: CoingeckoService
   ) {}
 
-  trendCategories: any[] = [];
-  trendCoins: any[] = [];
-
   ngOnInit(): void {
-    this.loadTrending();
+    // Lifecycle hook that runs after the component's view has been initialized
+    this.loadTrending(); // Calling the method to load trending categories and coins
   }
 
   loadTrending(): void {
+    // Method to load trending data from the CoingeckoService
     this.coingeckoService.getTrending().subscribe(
       (data) => {
-        this.trendCategories = data.categories;
-        this.trendCoins = data.coins;
+        // Handling the success scenario
+        this.trendCategories = data.categories; // Assigning the trending categories to the trendCategories array
+        this.trendCoins = data.coins; // Assigning the trending coins to the trendCoins array
       },
       (error) => {
-        // Handle errors if any
-        // If useApi is false, load data from local JSON
+        // Handling errors if the API call fails
+        // If an error occurs, load data from a local JSON file as a fallback
         this.coingeckoService.loadLocalTrending().subscribe((data) => {
-          this.trendCategories = data.categories;
-          this.trendCoins = data.coins;
+          this.trendCategories = data.categories; // Assigning the local trending categories to the trendCategories array
+          this.trendCoins = data.coins; // Assigning the local trending coins to the trendCoins array
         });
       }
     );

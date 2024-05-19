@@ -2,17 +2,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Coin } from '../interfaces/coin';
+import { Categories } from '../interfaces/categories';
+import { Category } from '../interfaces/category';
+import { Data } from '../interfaces/data';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoingeckoService {
+  private baseUrl = 'https://api.coingecko.com/api/v3'; // Base URL for CoinGecko API
 
-  private baseUrl = 'https://api.coingecko.com/api/v3';
+  constructor(private readonly http: HttpClient) {}
 
-  constructor(private http: HttpClient) {}
-
-  // Get list of cryptocurrencies with pagination
+  /**
+   * Method to fetch list of cryptocurrencies with pagination
+   * Fetches a list of cryptocurrencies from the CoinGecko API.
+   * @param page Page number for pagination.
+   * @param perPage Number of items per page.
+   * @param vsCurrency The currency to display prices in.
+   * @param category Category of coins to filter by.
+   * @param order Sorting order for the list.
+   * @param sparkline Whether to include sparkline data.
+   * @param locale Language locale for response.
+   * @returns An Observable array of Coin objects.
+   */
   getCryptocurrencies(
     page: number = 1,
     perPage: number = 50,
@@ -21,77 +35,94 @@ export class CoingeckoService {
     order: string = 'market_cap_desc',
     sparkline: boolean = false,
     locale: string = 'en'
-  ): Observable<any> {
-    // Create HTTP parameters for pagination
+  ): Observable<Coin[]> {
+    // Create HTTP parameters for pagination and other query parameters
     let params = new HttpParams();
-    params = params.append('page', page.toString());
-    params = params.append('per_page', perPage.toString());
-    params = params.append('vs_currency', vs_currency.toString());
-    params = params.append('order', order.toString());
-    params = params.append('sparkline', sparkline.toString());
-    params = params.append('locale', locale.toString());
+    params = params.set('page', page.toString());
+    params = params.set('per_page', perPage.toString());
+    params = params.set('vs_currency', vs_currency);
+    params = params.set('order', order);
+    params = params.set('sparkline', sparkline.toString());
+    params = params.set('locale', locale);
 
-    if (category != '') params = params.append('category', category.toString());
+    if (category != '') params = params.set('category', category);
 
-    return this.http.get<any>(`${this.baseUrl}/coins/markets?`, { params });
+    // Making HTTP GET request to fetch cryptocurrencies
+    return this.http.get<Coin[]>(`${this.baseUrl}/coins/markets?`, { params });
   }
 
-  // Get list of Categories with pagination
-  getCategories(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/coins/categories`);
-  }
-  getCategoriesList(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/coins/categories/list`);
-  }
-
-  getTrending(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/search/trending`);
+  /**
+   * Method to fetch categories
+   * Fetches a list of categories from the CoinGecko API.
+   * @returns An Observable array of Category objects.
+   */
+  getCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(`${this.baseUrl}/coins/categories`);
   }
 
-  getSearch(search: string = ''): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/search?query=${search}`);
+  /**
+   * Method to fetch categories list
+   * Fetches a list of categories from the CoinGecko API.
+   * @returns An Observable array of Categories objects.
+   */
+  getCategoriesList(): Observable<Categories[]> {
+    return this.http.get<Categories[]>(`${this.baseUrl}/coins/categories/list`);
   }
 
-  // Get cryptocurrency details by ID
-  getCryptocurrencyById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/coins/${id}`);
+  /**
+   * Method to fetch trending data
+   * Fetches trending coins from the CoinGecko API.
+   * @returns An Observable containing trending data.
+   */
+  getTrending(): Observable<Data> {
+    return this.http.get<Data>(`${this.baseUrl}/search/trending`);
   }
 
-  // Get cryptocurrencies with optional filters
-  getCryptocurrenciesWithFilters(filters: any): Observable<any> {
-    const queryString = new URLSearchParams(filters).toString();
-    const url = `${this.baseUrl}/coins/markets?${queryString}`;
-    return this.http.get<any>(url);
+  /**
+   * Method to search for cryptocurrencies
+   * Searches for coins based on the provided query.
+   * @param searchQuery The search query.
+   * @returns An Observable array of Coin objects matching the search query.
+   */
+  getSearch(search: string = ''): Observable<Coin[]> {
+    return this.http.get<Coin[]>(`${this.baseUrl}/search?query=${search}`);
   }
 
-  // local data
-  loadLocalCoins(category: string = ''): Observable<any> {
-    if (category === '') {
-      return this.http.get<any>('assets/data/list.json');
-    } else {
-      return this.http.get<any>(
-        'assets/data/category_real-world-assets-rw.json'
-      );
-    }
+  /**
+   * Method to fetch cryptocurrency details by ID
+   * Fetches cryptocurrency details by ID.
+   * @param id The ID of the cryptocurrency.
+   * @returns An Observable containing details of the cryptocurrency.
+   */
+  getCryptocurrencyById(id: string): Observable<Coin> {
+    return this.http.get<Coin>(`${this.baseUrl}/coins/${id}`);
   }
 
-  loadLocalCoin(): Observable<any> {
-    return this.http.get<any>('assets/data/bitcoin.json');
+  // Methods to load local data from JSON files (for fallback or testing purposes)
+  loadLocalCoins(category: string = ''): Observable<Coin[]> {
+    const url = category
+      ? 'assets/data/category_real-world-assets-rw.json'
+      : 'assets/data/list.json';
+    return this.http.get<Coin[]>(url);
   }
 
-  loadLocalCategories(): Observable<any> {
-    return this.http.get<any>('assets/data/categories.json');
+  loadLocalCoin(): Observable<Coin> {
+    return this.http.get<Coin>('assets/data/bitcoin.json');
   }
 
-  loadLocalCategoriesList(): Observable<any> {
-    return this.http.get<any>('assets/data/categories_list.json');
+  loadLocalCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>('assets/data/categories.json');
   }
 
-  loadLocalTrending(): Observable<any> {
-    return this.http.get<any>('assets/data/trending.json');
+  loadLocalCategoriesList(): Observable<Categories[]> {
+    return this.http.get<Categories[]>('assets/data/categories_list.json');
   }
 
-  loadLocalSearch(): Observable<any> {
-    return this.http.get<any>('assets/data/search_bit.json');
+  loadLocalTrending(): Observable<Data> {
+    return this.http.get<Data>('assets/data/trending.json');
+  }
+
+  loadLocalSearch(): Observable<Coin[]> {
+    return this.http.get<Coin[]>('assets/data/search_bit.json');
   }
 }

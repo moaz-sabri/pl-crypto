@@ -1,9 +1,9 @@
 <div *ngIf="trendCategories && trendCoins">
   <div class="accordion accordion-flush" id="accordionPanelsStayTrending">
-    <div class="accordion-item">
+    <div class="accordion-item mb-3 border-0">
       <h2 class="accordion-header">
         <button
-          class="accordion-button bg-light"
+          class="accordion-button bg-light-subtle"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#panelsStayOpen-trendCategories"
@@ -24,8 +24,8 @@
               class="col-md-4"
               [routerLink]="['/coins', category.slug]"
             >
-              <div class="card mb-3">
-                <div class="card-header">
+              <div class="card p-3 border-0 shadow shadow-sm mb-3">
+                <div class="">
                   <h4>{{ category.name }}</h4>
                 </div>
                 <div class="card-body">
@@ -35,7 +35,7 @@
                     alt="{{ category.name }}"
                   />
                 </div>
-                <div class="card-footer d-flex justify-content-between">
+                <div class="d-flex justify-content-between">
                   <span>
                     {{
                       category.data.total_volume
@@ -52,10 +52,10 @@
         </div>
       </div>
     </div>
-    <div class="accordion-item">
+    <div class="accordion-item border-0">
       <h2 class="accordion-header">
         <button
-          class="accordion-button bg-light"
+          class="accordion-button bg-light-subtle"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#panelsStayOpen-trendCoins"
@@ -76,7 +76,7 @@
               [routerLink]="['/coin', coin.item.id]"
               class="col-md-6 mb-3"
             >
-              <div class="p-2">
+              <div class="card p-3 border-0 shadow shadow-sm mb-3">
                 <div class="row">
                   <div class="col-sm-4 align-content-center">
                     <img
@@ -95,7 +95,13 @@
 
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item">
-                        Price: {{ coin.item.data.price }}
+                        Price:
+                        {{
+                          coin.item.data.price
+                            | currency
+                              : this.globalService.currencyCode
+                              : this.globalService.currencySymbol
+                        }}
                       </li>
                       <li class="list-group-item">
                         Market Cap {{ coin.item.data.market_cap }}

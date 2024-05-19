@@ -3,9 +3,9 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CoingeckoService } from '../service/coingecko.service';
 import { CommonModule } from '@angular/common';
 import { NgChartjsModule } from 'ng-chartjs';
-import * as Chart from 'chart.js';
 import { Coin } from '../interfaces/coin';
 import { GlobalService } from '../service/global.service';
+import * as Chart from 'chart.js';
 
 @Component({
   selector: 'app-coin',
@@ -15,13 +15,13 @@ import { GlobalService } from '../service/global.service';
   styleUrl: './detail.component.css',
 })
 export class CoinDetailComponent {
-  lineChartData: Chart.ChartDataset[] = [];
-  lineChartLabels: Array<any> = [];
+  lineChartData: Chart.ChartDataset[] = []; // Declaring an array to hold chart data
+  lineChartLabels: Array<any> = []; // Declaring an array to hold chart labels
   lineChartOptions: any = {
+    // Configuring chart options
     responsive: true,
     horizontalLine: [
       {
-        // use custom global plugin
         y: 82,
         style: 'rgba(255, 0, 0, .4)',
         text: 'max',
@@ -36,40 +36,49 @@ export class CoinDetailComponent {
       },
     ],
   };
-  lineChartLegend = false;
+  lineChartLegend = false; // Setting the chart legend to be initially hidden
+  cryptocurrency: Coin = {}; // Declaring an object to hold cryptocurrency data
 
   constructor(
-    private route: ActivatedRoute,
-    protected globalService: GlobalService,
-    private coingeckoService: CoingeckoService
+    private readonly route: ActivatedRoute,
+    protected readonly globalService: GlobalService,
+    private readonly coingeckoService: CoingeckoService
   ) {}
 
-  cryptocurrency: Coin = {};
-
   ngOnInit(): void {
+    // Lifecycle hook that runs after the component's view has been initialized
+    // Subscribing to route parameters to fetch cryptocurrency data based on the ID parameter
     this.route.params.subscribe((params) => {
-      const id = params['id']; // Access the 'id' parameter value
-      this.coingeckoService.getCryptocurrencyById(id).subscribe(
-        (data) => {
-          this.cryptocurrency = data;
-          this.loadCart(data);
-        },
-        (error) => {
-          // Handle errors if any
-          // If useApi is false, load data from local JSON
-          this.coingeckoService.loadLocalCoin().subscribe((data) => {
-            this.cryptocurrency = data;
-            this.loadCart(data);
-          });
-        }
-      );
+      const id = params['id']; // Extracting the ID parameter from the route
+      this.fetchCryptocurrency(id); // Fetching cryptocurrency data using the extracted ID
     });
   }
 
-  loadCart(data: any) {
+  fetchCryptocurrency(id: string): void {
+    // Method to fetch cryptocurrency data by ID
+    this.coingeckoService.getCryptocurrencyById(id).subscribe(
+      (data) => {
+        // Handling the success scenario
+        this.cryptocurrency = data; // Assigning the fetched data to the cryptocurrency object
+        this.loadChart(data); // Loading the chart with the fetched data
+      },
+      (error) => {
+        // Handling errors if the API call fails
+        // If an error occurs, load data from a local JSON file as a fallback
+        this.coingeckoService.loadLocalCoin().subscribe((data) => {
+          this.cryptocurrency = data; // Assigning the local data to the cryptocurrency object
+          this.loadChart(data); // Loading the chart with the local data
+        });
+      }
+    );
+  }
+
+  loadChart(data: any) {
+    // Method to load chart data based on the fetched cryptocurrency data
+    // Assigning the price change percentages to the lineChartData array
     this.lineChartData = [
       {
-        label: 'Price',
+        label: 'Price', // Label for the chart
         data: [
           data.market_data.price_change_percentage_1y_in_currency.eur,
           data.market_data.price_change_percentage_200d_in_currency.eur,
@@ -80,14 +89,15 @@ export class CoinDetailComponent {
           data.market_data.price_change_percentage_24h_in_currency.eur,
           data.market_data.price_change_percentage_1h_in_currency.eur,
         ],
-        fill: false,
-        borderColor: 'rgba(75,192,192,1)',
-        borderWidth: 2,
-        pointBackgroundColor: 'rgba(75,192,192,1)',
-        pointRadius: 3,
-        pointHoverRadius: 5,
+        fill: false, // Not filling the area under the line
+        borderColor: 'rgba(75,192,192,1)', // Setting the border color of the line
+        borderWidth: 2, // Setting the border width of the line
+        pointBackgroundColor: 'rgba(75,192,192,1)', // Setting the background color of the points
+        pointRadius: 3, // Setting the radius of the points
+        pointHoverRadius: 5, // Setting the radius of the points on hover
       },
     ];
+    // Assigning the labels for the chart
     this.lineChartLabels = [
       '1y',
       '200d',
@@ -98,6 +108,6 @@ export class CoinDetailComponent {
       '24h',
       '1h',
     ];
-    this.lineChartLegend = true;
+    this.lineChartLegend = true; // Displaying the chart legend
   }
 }
