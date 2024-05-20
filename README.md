@@ -55,11 +55,6 @@ The Angular project is a web application designed to provide users with informat
    - Map routes to components and specify titles for each route using the provided route configuration.
 
 ```typescript
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { CoinListComponent } from "./coin-list/coin-list.component";
-import { CoinDetailComponent } from "./coin-detail/coin-detail.component";
-import { CategoriesComponent } from "./categories/categories.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "", pathMatch: "full", data: { title: "Home" } },
@@ -69,11 +64,6 @@ const routes: Routes = [
   { path: "categories", component: CategoriesComponent, data: { title: "Categories" } },
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}
 ```
 
 7. **Styling**:
@@ -85,6 +75,8 @@ export class AppRoutingModule {}
 
    - Write unit tests for components and services to ensure functionality and data retrieval.
    - Use Angular TestBed for testing component behavior.
+   - Implement GitHub CI Action testing to automate the testing process for every push or pull request. Use appropriate test scripts in the GitHub Actions workflow file to execute unit tests and ensure the integrity of the codebase.
+
 
 9. **Documentation**:
 
@@ -102,26 +94,62 @@ export class AppRoutingModule {}
 │
 ├── src/
 │   ├── app/
+│   │   │── categories/
+│   │   │   ├── categories.component.html
+│   │   │   ├── categories.component.css
+│   │   │   ├── categories.component.ts
+│   │   │── detail/
+│   │   │   ├── detail.component.html
+│   │   │   ├── detail.component.css
+│   │   │   ├── detail.component.ts
+│   │   │── list/
+│   │   │   ├── list.component.html
+│   │   │   ├── list.component.css
+│   │   │   ├── list.component.ts
+│   │   ├── interfaces/
+│   │   │   ├── categories.ts
+│   │   │   ├── category.ts
+│   │   │   ├── coin.ts
+│   │   │   ├── data.ts
+│   │   │   ├── market-data.ts
+│   │   │   ├── tickers.ts
 │   │   ├── global/
-│   │   │   ├── coin-list/
-│   │   │   │   ├── coin-list.component.html
-│   │   │   │   ├── coin-list.component.css
-│   │   │   │   ├── coin-list.component.ts
-│   │   │   ├── coin-detail/
-│   │   │   │   ├── coin-detail.component.html
-│   │   │   │   ├── coin-detail.component.css
-│   │   │   │   └── coin-detail.component.ts
+│   │   │   ├── alert/
+│   │   │   │   ├── alert.component.html
+│   │   │   │   ├── alert.component.css
+│   │   │   │   ├── alert.component.ts
+│   │   │   ├── footer/
+│   │   │   │   ├── footer.component.html
+│   │   │   │   ├── footer.component.css
+│   │   │   │   └── footer.component.ts
+│   │   │   ├── header/
+│   │   │   │   ├── header.component.html
+│   │   │   │   ├── header.component.css
+│   │   │   │   └── header.component.ts
+│   │   │   ├── modal/
+│   │   │   │   ├── modal.component.html
+│   │   │   │   ├── modal.component.css
+│   │   │   │   └── modal.component.ts
+│   │   │   ├── navbar/
+│   │   │   │   ├── navbar.component.html
+│   │   │   │   ├── navbar.component.css
+│   │   │   │   └── navbar.component.ts
 │   │   ├── services/
-│   │   │   └── coingecko.service.ts
-│   │   ├── models/
-│   │   │   └── coin.model.ts
+|   │   │   └── alert.service.ts
+│   │   │   |── coingecko.service.ts
+│   │   │   └── global.service.ts
+│   │   ├── app-routing.module.ts
 │   │   ├── app.component.html
 │   │   ├── app.component.css
 │   │   ├── app.component.ts
-│   │   └── app.module.ts
+│   │   └── app.config.ts
+│   │   └── app.routes.ts
 │   │
 │   ├── index.html
 │   └── styles.css
+│   └── .htaccess
+│   └── favicon.ico
+│   └── ...
 │
 ├── README.md
 └── angular.json
@@ -156,6 +184,8 @@ To run tests:
 
 ```bash
 ng test
+
+ng e2e
 ```
 
 To build the project:
@@ -178,7 +208,7 @@ The project utilizes the following dependencies to enhance functionality and use
 
 - **Bootstrap 5.3.3**: Provides a robust framework for building responsive and visually appealing web applications, offering extensive styling options and components.
 - **bootstrap-icons 1.11.3**: Offers a comprehensive collection of icons for use in Bootstrap projects, enhancing visual elements and user interface components.
-- **Charts.js 4.4.2**: Facilitates the creation of interactive and visually engaging charts and graphs, allowing for the visualization of cryptocurrency price data and trends.
+- **ng-chartjs 0.2.8**: Facilitates the creation of interactive and visually engaging charts and graphs, allowing for the visualization of cryptocurrency price data and trends.
 - **TypeScript 5.4.2**: Enables the development of scalable and maintainable Angular applications, providing enhanced type checking and compile-time error detection.
 
 ### Data Loading Hint
@@ -199,13 +229,17 @@ When loading data, the application first attempts to fetch categories from the C
 
 - **previousPage()**: Method to navigate to the previous page. Decrements the current page number if it's greater than 1 and reloads cryptocurrencies for the previous page.
 
-- **moreCategories()**: Method to load more categories. Increases the number of categories per page by 10 and updates the view of categories accordingly.
-
 - **loadTrending()**: Method to load trending data from the CoingeckoService. Handles API call success and failure scenarios, and fallbacks to local data in case of API failure.
 
 - **loadChart(data: any)**: Method to load chart data based on the fetched cryptocurrency data.
 
 - **fetchCryptocurrency(id: string)**: Method to fetch cryptocurrency data by ID from the CoingeckoService. Handles API call success and failure scenarios, and fallbacks to local data in case of API failure.
+
+## Categories
+
+- **loadCategories()**: Method to load categories from the CoingeckoService. Handles API call success and failure scenarios, and fallbacks to local data in case of API failure.
+
+- **moreCategories()**: Method to load more categories. Increases the number of categories per page by 10 and updates the view of categories accordingly.
 
 ## Search
 
@@ -216,8 +250,6 @@ When loading data, the application first attempts to fetch categories from the C
 - **onRouteChange()**: Method to execute logic when a route changes. Scrolls the window to the top.
 
 ## Alert
-
-- **loadCategories()**: Method to load categories from the CoingeckoService. Handles API call success and failure scenarios, and fallbacks to local data in case of API failure.
 
 - **showAlert(type: 'success' | 'danger' | 'warning' | 'info', message: string)**: Method to show an alert message with a specified type and message.
 
