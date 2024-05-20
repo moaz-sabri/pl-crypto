@@ -17,7 +17,7 @@ import { FooterComponent } from './components/footer/footer.component';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  title = 'prolion';
+  title = 'pl-crypto';
 
   ngOnInit(): void {}
 }
