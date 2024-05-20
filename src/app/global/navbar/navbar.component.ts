@@ -23,7 +23,6 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Lifecycle hook that runs after the component's view has been initialized
     // Subscribing to router events to detect navigation start events
     this.router.events
       .pipe(filter((e) => e instanceof NavigationStart)) // Filtering for NavigationStart events
@@ -33,11 +32,18 @@ export class NavbarComponent implements OnInit {
       });
   }
 
+  /**
+   * Executes logic to scroll to the top of the page when a route changes.
+   */
   onRouteChange(): void {
     // Method to execute logic when a route changes
-    console.log('Route changed'); // Logging the route change
+    window.scrollTo(0, 0);
   }
 
+  /**
+   * Performs a search using the CoingeckoService.
+   * Opens a modal with the search results.
+   */
   search(): void {
     // Method to perform a search using the CoingeckoService
     // Calling the search function in CoingeckoService with the searchQuery parameter
@@ -56,6 +62,10 @@ export class NavbarComponent implements OnInit {
     );
   }
 
+  /**
+   * Opens a modal with the provided search result.
+   * @param result The search result to display in the modal.
+   */
   openModal(result: any) {
     // Method to open a modal with the search result
     const modalRef = this.modalService.open(ModalComponent, {

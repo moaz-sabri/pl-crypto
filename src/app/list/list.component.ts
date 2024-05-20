@@ -7,7 +7,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { HeaderComponent } from '../components/header/header.component';
+import { HeaderComponent } from '../global/header/header.component';
 import { GlobalService } from '../service/global.service';
 import { Coin } from '../interfaces/coin';
 
@@ -19,7 +19,6 @@ import { Coin } from '../interfaces/coin';
   styleUrl: './list.component.css',
 })
 export class CoinListComponent implements OnInit {
-
   categories_view: any[] = []; // Declaring an array to hold a view of categories
   categories: any[] = []; // Declaring an array to hold categories
   cryptocurrencies: Coin[] = []; // Declaring an array to hold cryptocurrency data
@@ -45,32 +44,39 @@ export class CoinListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Lifecycle hook that runs after the component's view has been initialized
     this.loadCategories(); // Loading categories
     this.loadCryptocurrencies(); // Loading cryptocurrencies
   }
 
+  /**
+   * Loads categories.
+   * Retrieves categories data from the Coingecko API. If the API call fails, fallbacks to loading data from a local JSON file.
+   * Updates the 'categories' and 'categories_view' arrays with the fetched or locally loaded data.
+   */
   loadCategories() {
-    // Method to load categories
     this.coingeckoService.getCategoriesList().subscribe(
       (data) => {
         // Handling the success scenario
         this.categories = data; // Assigning the fetched data to the categories array
-        this.categories_view = data.slice(0, this.itemsPerPage); // Assigning a view of categories
+        this.categories_view = data.slice(0, this.categoryPerPage); // Assigning a view of categories
       },
       (error) => {
         // Handling errors if the API call fails
         // If an error occurs, load data from a local JSON file as a fallback
         this.coingeckoService.loadLocalCategoriesList().subscribe((data) => {
           this.categories = data; // Assigning the local data to the categories array
-          this.categories_view = data.slice(0, this.itemsPerPage); // Assigning a view of categories
+          this.categories_view = data.slice(0, this.categoryPerPage); // Assigning a view of categories
         });
       }
     );
   }
 
+  /**
+   * Fetches data about cryptocurrencies based on specified parameters.
+   * If the API call fails, falls back to loading data from a local JSON file.
+   * Handles pagination and updates UI accordingly.
+   */
   loadCryptocurrencies(): void {
-    // Method to load cryptocurrencies
     // Fetching parameters for the API call
     let category = this.category;
     let order = this.order;
@@ -104,18 +110,20 @@ export class CoinListComponent implements OnInit {
           data.length < per_page
             ? this.elementRef.nativeElement
                 .querySelector('#nextButton')
-                .classList.add('disabled')
+                .classList.add('disabled', 'btn-outline-secondary')
             : this.elementRef.nativeElement
                 .querySelector('#nextButton')
-                .classList.remove('disabled');
+                .classList.remove('disabled', 'btn-outline-secondary');
           this.currentPage <= 1
             ? this.elementRef.nativeElement
                 .querySelector('#previousButton')
-                .classList.add('disabled')
+                .classList.add('disabled', 'btn-outline-secondary')
             : this.elementRef.nativeElement
                 .querySelector('#previousButton')
-                .classList.remove('disabled');
+                .classList.remove('disabled', 'btn-outline-secondary');
           this.cryptocurrencies = data; // Assigning the fetched data to the cryptocurrencies array
+
+          this.setTheActiveSortButton(order);
         },
         (error) => {
           // Handling errors if the API call fails
@@ -124,15 +132,35 @@ export class CoinListComponent implements OnInit {
             this.cryptocurrencies = data.slice(0, per_page); // Assigning the local data to the cryptocurrencies array
             this.elementRef.nativeElement
               .querySelector('#nextButton')
-              .classList.add('disabled'); // Disabling pagination buttons
+              .classList.add('disabled', 'btn-outline-secondary'); // Disabling pagination buttons
             this.elementRef.nativeElement
               .querySelector('#previousButton')
-              .classList.add('disabled');
+              .classList.add('disabled', 'btn-outline-secondary');
           });
         }
       );
   }
 
+  /**
+   * Sets the active state for the sorting button based on the specified sort parameter.
+   * @param sort The sort parameter used to determine which button should be active.
+   */
+  setTheActiveSortButton(sort: string) {
+    // select elements of sort button
+    const buttons = document.querySelectorAll('.sort-func');
+    const activeButton = document.getElementById(sort) as HTMLElement;
+    buttons.forEach((button) => {
+      button.classList.remove('active', 'btn-primary');
+    });
+
+    activeButton.classList.add('active', 'btn-primary');
+  }
+
+  /**
+   * Sorts the page based on the specified parameter and value.
+   * @param param The parameter to sort by.
+   * @param val The value indicating the sort direction (0 for ascending, 1 for descending).
+   */
   sortPage(param: string, val: number) {
     // Method to sort the page
     let sort = `${param}${val == 0 ? '_asc' : '_desc'}`;
@@ -149,6 +177,10 @@ export class CoinListComponent implements OnInit {
     this.loadCryptocurrencies(); // Reloading cryptocurrencies after sorting
   }
 
+  /**
+   * Loads a specific number of items per page.
+   * @param val The number of items per page to load.
+   */
   loadPerPage(val: number) {
     // Method to load a specific number of items per page
     this.itemsPerPage = val; // Updating items per page
@@ -164,12 +196,20 @@ export class CoinListComponent implements OnInit {
     this.loadCryptocurrencies(); // Reloading cryptocurrencies after updating items per page
   }
 
+  /**
+   * Navigates to the next page.
+   * Increments the current page number and reloads cryptocurrencies for the next page.
+   */
   nextPage(): void {
     // Method to navigate to the next page
     this.currentPage++; // Incrementing the current page number
     this.loadCryptocurrencies(); // Loading cryptocurrencies for the next page
   }
 
+  /**
+   * Navigates to the previous page.
+   * Decrements the current page number and reloads cryptocurrencies for the previous page.
+   */
   previousPage(): void {
     // Method to navigate to the previous page
     if (this.currentPage > 1) {
@@ -179,6 +219,11 @@ export class CoinListComponent implements OnInit {
     }
   }
 
+  /**
+   * Loads more categories.
+   * Increases the number of categories per page by 10 and updates the displayed categories.
+   * Disables the 'more' button if all categories are displayed.
+   */
   moreCategories(): void {
     // Method to load more categories
     this.categoryPerPage += 10; // Increasing the number of categories per page by 10
@@ -187,7 +232,7 @@ export class CoinListComponent implements OnInit {
       // Checking if all categories are displayed
       this.elementRef.nativeElement
         .querySelector('#moreButton')
-        .classList.add('disabled'); // Disabling the 'more' button if all categories are displayed
+        .classList.add('disabled', 'btn-outline-secondary'); // Disabling the 'more' button if all categories are displayed
 
     // Slicing the categories array to display additional categories
     this.categories_view = this.categories.slice(

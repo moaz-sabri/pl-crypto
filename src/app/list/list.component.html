@@ -8,10 +8,18 @@
             <tr>
               <th scope="col">
                 <div class="d-block">
-                  <button class="btn btn-sm me-2" (click)="sortPage('id', 0)">
+                  <button
+                    id="id_asc"
+                    class="sort-func btn btn-sm me-2"
+                    (click)="sortPage('id', 0)"
+                  >
                     <i class="bi bi-sort-up"></i>
                   </button>
-                  <button class="btn btn-sm" (click)="sortPage('id', 1)">
+                  <button
+                    id="id_desc"
+                    class="sort-func btn btn-sm"
+                    (click)="sortPage('id', 1)"
+                  >
                     <i class="bi bi-sort-down"></i>
                   </button>
                 </div>
@@ -22,12 +30,17 @@
               <th scope="col">
                 <div class="d-block">
                   <button
-                    class="btn btn-sm me-2"
+                    id="volume_asc"
+                    class="sort-func btn btn-sm me-2"
                     (click)="sortPage('volume', 0)"
                   >
                     <i class="bi bi-sort-up"></i>
                   </button>
-                  <button class="btn btn-sm" (click)="sortPage('volume', 1)">
+                  <button
+                    id="volume_desc"
+                    class="sort-func btn btn-sm"
+                    (click)="sortPage('volume', 1)"
+                  >
                     <i class="bi bi-sort-down"></i>
                   </button>
                 </div>
@@ -36,13 +49,15 @@
               <th scope="col" class="text-end">
                 <div class="d-block">
                   <button
-                    class="btn btn-sm me-2"
+                    id="market_cap_asc"
+                    class="sort-func btn btn-sm me-2"
                     (click)="sortPage('market_cap', 0)"
                   >
                     <i class="bi bi-sort-up"></i>
                   </button>
                   <button
-                    class="btn btn-sm"
+                    id="market_cap_desc"
+                    class="sort-func btn btn-sm"
                     (click)="sortPage('market_cap', 1)"
                   >
                     <i class="bi bi-sort-down"></i>

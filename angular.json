@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "prolion": {
+    "pl-crypto": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/prolion",
+            "outputPath": "dist/pl-crypto",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -22,7 +22,8 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/.htaccess"
             ],
             "styles": [
               "src/styles.css",
@@ -35,11 +36,17 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -61,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "prolion:build:production"
+              "buildTarget": "pl-crypto:build:production"
             },
             "development": {
-              "buildTarget": "prolion:build:development"
+              "buildTarget": "pl-crypto:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "prolion:build"
+            "buildTarget": "pl-crypto:build"
           }
         },
         "test": {
@@ -98,11 +105,11 @@
         "cypress-run": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "prolion:serve"
+            "devServerTarget": "pl-crypto:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "prolion:serve:production"
+              "devServerTarget": "pl-crypto:serve:production"
             }
           }
         },
@@ -116,27 +123,27 @@
         "ct": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "prolion:serve",
+            "devServerTarget": "pl-crypto:serve",
             "watch": true,
             "headless": false,
             "testingType": "component"
           },
           "configurations": {
             "development": {
-              "devServerTarget": "prolion:serve:development"
+              "devServerTarget": "pl-crypto:serve:development"
             }
           }
         },
         "e2e": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "prolion:serve",
+            "devServerTarget": "pl-crypto:serve",
             "watch": true,
             "headless": false
           },
           "configurations": {
             "production": {
-              "devServerTarget": "prolion:serve:production"
+              "devServerTarget": "pl-crypto:serve:production"
             }
           }
         }

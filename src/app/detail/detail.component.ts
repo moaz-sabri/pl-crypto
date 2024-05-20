@@ -46,7 +46,6 @@ export class CoinDetailComponent {
   ) {}
 
   ngOnInit(): void {
-    // Lifecycle hook that runs after the component's view has been initialized
     // Subscribing to route parameters to fetch cryptocurrency data based on the ID parameter
     this.route.params.subscribe((params) => {
       const id = params['id']; // Extracting the ID parameter from the route
@@ -54,6 +53,10 @@ export class CoinDetailComponent {
     });
   }
 
+  /**
+   * Fetches cryptocurrency data by ID.
+   * @param id The ID of the cryptocurrency.
+   */
   fetchCryptocurrency(id: string): void {
     // Method to fetch cryptocurrency data by ID
     this.coingeckoService.getCryptocurrencyById(id).subscribe(
@@ -73,8 +76,11 @@ export class CoinDetailComponent {
     );
   }
 
+  /**
+   * Loads chart data based on the fetched cryptocurrency data.
+   * @param data The cryptocurrency data fetched from the API.
+   */
   loadChart(data: any) {
-    // Method to load chart data based on the fetched cryptocurrency data
     // Assigning the price change percentages to the lineChartData array
     this.lineChartData = [
       {
