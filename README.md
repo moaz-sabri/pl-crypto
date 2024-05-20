@@ -237,4 +237,4 @@ You can try out a live demo of this project on [pl.joudev.com](https://pl.joudev
 
 ## License
 
-This project is licensed under the [License Name](LICENSE).
+This project is licensed under the [License](LICENSE).
