@@ -6,6 +6,7 @@ import { Coin } from '../interfaces/coin';
 import { Categories } from '../interfaces/categories';
 import { Category } from '../interfaces/category';
 import { Data } from '../interfaces/data';
+import { AlertService } from './alert.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,10 @@ import { Data } from '../interfaces/data';
 export class CoingeckoService {
   private baseUrl = 'https://api.coingecko.com/api/v3'; // Base URL for CoinGecko API
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    private alertService: AlertService
+  ) {}
 
   /**
    * Method to fetch list of cryptocurrencies with pagination
@@ -103,26 +107,50 @@ export class CoingeckoService {
     const url = category
       ? 'assets/data/category_real-world-assets-rw.json'
       : 'assets/data/list.json';
+    this.alertService.showAlert(
+      'danger',
+      `We're sorry, but due to limitations with the API, the data may not always be available. In such cases, we use locally stored data for uninterrupted access to essential information. Thank you for your understanding.`
+    );
     return this.http.get<Coin[]>(url);
   }
 
   loadLocalCoin(): Observable<Coin> {
+    this.alertService.showAlert(
+      'danger',
+      `We're sorry, but due to limitations with the API, the data may not always be available. In such cases, we use locally stored data for uninterrupted access to essential information. Thank you for your understanding.`
+    );
     return this.http.get<Coin>('assets/data/bitcoin.json');
   }
 
   loadLocalCategories(): Observable<Category[]> {
+    this.alertService.showAlert(
+      'danger',
+      `We're sorry, but due to limitations with the API, the data may not always be available. In such cases, we use locally stored data for uninterrupted access to essential information. Thank you for your understanding.`
+    );
     return this.http.get<Category[]>('assets/data/categories.json');
   }
 
   loadLocalCategoriesList(): Observable<Categories[]> {
+    this.alertService.showAlert(
+      'danger',
+      `We're sorry, but due to limitations with the API, the data may not always be available. In such cases, we use locally stored data for uninterrupted access to essential information. Thank you for your understanding.`
+    );
     return this.http.get<Categories[]>('assets/data/categories_list.json');
   }
 
   loadLocalTrending(): Observable<Data> {
+    this.alertService.showAlert(
+      'danger',
+      `We're sorry, but due to limitations with the API, the data may not always be available. In such cases, we use locally stored data for uninterrupted access to essential information. Thank you for your understanding.`
+    );
     return this.http.get<Data>('assets/data/trending.json');
   }
 
   loadLocalSearch(): Observable<Coin[]> {
+    this.alertService.showAlert(
+      'danger',
+      `We're sorry, but due to limitations with the API, the data may not always be available. In such cases, we use locally stored data for uninterrupted access to essential information. Thank you for your understanding.`
+    );
     return this.http.get<Coin[]>('assets/data/search_bit.json');
   }
 }

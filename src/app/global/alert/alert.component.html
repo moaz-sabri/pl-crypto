@@ -1,0 +1,16 @@
+<div *ngIf="alerts.length" class="fade show position-fixed top-0 end-0 m-3">
+  <div
+    *ngFor="let alert of alerts"
+    class="alert alert-{{ alert.type }} alert-dismissible"
+    role="alert"
+    [ngClass]="alert.type"
+  >
+    {{ alert.message }}
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="removeAlert(alert)"
+    ></button>
+  </div>
+</div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CoingeckoService } from '../service/coingecko.service';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '../components/header/header.component';
+import { HeaderComponent } from '../global/header/header.component';
 import { GlobalService } from '../service/global.service';
 import { Category } from '../interfaces/category';
 
@@ -22,10 +22,13 @@ export class CategoriesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Lifecycle hook that runs after the component's view has been initialized
     this.loadCategories(); // Calling the method to load categories
   }
 
+  /**
+   * Loads categories from the CoingeckoService.
+   * If the API call fails, it loads data from a local JSON file as a fallback.
+   */
   loadCategories(): void {
     // Method to load categories from the CoingeckoService
     this.coingeckoService.getCategories().subscribe(

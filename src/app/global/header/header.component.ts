@@ -22,10 +22,13 @@ export class HeaderComponent {
   ) {}
 
   ngOnInit(): void {
-    // Lifecycle hook that runs after the component's view has been initialized
     this.loadTrending(); // Calling the method to load trending categories and coins
   }
 
+  /**
+   * Loads trending data from the CoingeckoService.
+   * If the API call fails, fallbacks to loading data from a local JSON file.
+   */
   loadTrending(): void {
     // Method to load trending data from the CoingeckoService
     this.coingeckoService.getTrending().subscribe(

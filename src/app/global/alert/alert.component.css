@@ -1,0 +1,4 @@
+.position-fixed {
+    z-index: 1050; /* Higher z-index to ensure it appears above other elements */
+  }
+  

@@ -15,6 +15,9 @@ export class ModalComponent {
 
   constructor(private modalService: NgbModal) {}
 
+  /**
+   * Closes the currently open modal.
+   */
   closeModal() {
     // Method to close the modal
     this.modalService.dismissAll(); // Dismissing all modals

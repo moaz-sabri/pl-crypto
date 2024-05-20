@@ -27,7 +27,7 @@ The Angular project is a web application designed to provide users with informat
    - Create `CoinListComponent` responsible for displaying the list of coins.
    - Create `CoinDetailComponent` for showing detailed information about a coin.
    - Create `CategoriesComponent` to display categories of coins.
-   - Create sub-components such as `HeaderComponent`, `ModalComponent`, `FooterComponent`, and `NavbarComponent`.
+   - Create sub-components such as `HeaderComponent`, `ModalComponent`, `FooterComponent`, `AlertComponent` and `NavbarComponent`.
 
 3. **Create Interfaces**:
 
@@ -41,6 +41,7 @@ The Angular project is a web application designed to provide users with informat
 
 4. **Implement Services**:
 
+   - Create `Alert` to .
    - Create `CoingeckoService` to interact with the CoinGecko API.
    - Create `GlobalService` for global data and functionalities shared across components.
 
@@ -101,12 +102,11 @@ export class AppRoutingModule {}
 │
 ├── src/
 │   ├── app/
-│   │   ├── components/
+│   │   ├── global/
 │   │   │   ├── coin-list/
 │   │   │   │   ├── coin-list.component.html
 │   │   │   │   ├── coin-list.component.css
 │   │   │   │   ├── coin-list.component.ts
-│   │   │   │   └── coin-list-item.component.ts
 │   │   │   ├── coin-detail/
 │   │   │   │   ├── coin-detail.component.html
 │   │   │   │   ├── coin-detail.component.css
@@ -184,6 +184,48 @@ The project utilizes the following dependencies to enhance functionality and use
 ### Data Loading Hint
 
 When loading data, the application first attempts to fetch categories from the CoinGecko API using the `loader()` method in the `CoingeckoService`. If the API call fails or encounters an error, the application falls back to loading data from a local JSON file as a backup solution. This ensures a smooth user experience even if there are issues with the API. Please note that this scenario is primarily for testing purposes and should be adjusted accordingly based on API availability and usage limitations.
+
+## Cryptocurrency
+
+1. **loadCryptocurrencies()**: Method to fetch and load cryptocurrencies based on parameters like page, perPage, category, and order. Handles API call success and failure scenarios, and fallbacks to local data in case of API failure.
+
+2. **setTheActiveSortButton(sort: string)**: Method to set the active sort button based on the provided sort parameter. Removes the 'active' and 'btn-primary' classes from all sort buttons and adds them to the active button.
+
+- **sortPage(param: string, val: number)**: Method to sort the page based on a given parameter and value. Updates the query parameters for order and navigates to the updated route.
+
+- **loadPerPage(val: number)**: Method to load a specific number of items per page. Updates the query parameter for 'per_page' and navigates to the updated route.
+
+- **nextPage()**: Method to navigate to the next page. Increments the current page number and reloads cryptocurrencies for the next page.
+
+- **previousPage()**: Method to navigate to the previous page. Decrements the current page number if it's greater than 1 and reloads cryptocurrencies for the previous page.
+
+- **moreCategories()**: Method to load more categories. Increases the number of categories per page by 10 and updates the view of categories accordingly.
+
+- **loadTrending()**: Method to load trending data from the CoingeckoService. Handles API call success and failure scenarios, and fallbacks to local data in case of API failure.
+
+- **loadChart(data: any)**: Method to load chart data based on the fetched cryptocurrency data.
+
+- **fetchCryptocurrency(id: string)**: Method to fetch cryptocurrency data by ID from the CoingeckoService. Handles API call success and failure scenarios, and fallbacks to local data in case of API failure.
+
+## Search
+
+- **openModal(result: any)**: Method to open a modal with the search result data.
+
+- **search()**: Method to perform a search using the CoingeckoService. Opens a modal with the search result data and handles API call failure scenarios by fallbacking to local data.
+
+- **onRouteChange()**: Method to execute logic when a route changes. Scrolls the window to the top.
+
+## Alert
+
+- **loadCategories()**: Method to load categories from the CoingeckoService. Handles API call success and failure scenarios, and fallbacks to local data in case of API failure.
+
+- **showAlert(type: 'success' | 'danger' | 'warning' | 'info', message: string)**: Method to show an alert message with a specified type and message.
+
+- **clearAlert()**: Method to clear the alert message.
+
+- **closeModal()**: Method to close the modal.
+
+- **removeAlert(alertToRemove: Alert)**: Method to remove a specific alert from the alerts array and clear the alert.
 
 ### Project Version
 
